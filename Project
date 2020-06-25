@@ -1,0 +1,65 @@
+import random
+import tkinter as tk
+
+window = tk.Tk()
+window.geometry("400x300")
+window.title("Rock Paper Scissors Game")
+
+YOUR_SCORE = 0
+COMPUTER_SCORE = 0
+YOUR_CHOICE = ""
+COMPUTER_CHOICE = ""
+
+def choice_to_number(choice):
+    rps = {'ROCK':0,'PAPER':1,'SCISSORS':2}
+    return rps[choice]
+def number_to_choice(number):
+    rps={0:'ROCK',1:'PAPER',2:'SCISSORS'}
+    return rps[number]
+
+def computer_choice():
+    return random.choice(['ROCK','PAPER','SCISSORS'])
+
+def result(person_choice,comp_choice):
+    global YOUR_SCORE
+    global COMPUTER_SCORE
+    YOUR=choice_to_number(person_choice)
+    COMPUTER=choice_to_number(comp_choice)
+    if(YOUR==COMPUTER):
+        print("TIE")
+    elif((YOUR-COMPUTER)%3==1):
+        print("YOU WIN")
+        YOUR_SCORE+=1
+    else:
+        print("COMPUTER WINS")
+        COMPUTER_SCORE+=1
+    text_area = tk.Text(master=window,height=5,width=30,bg="#FF7F00")
+    text_area.grid(column=3,row=2)
+    answer = "Your Choice: {yc} \nComputer's Choice : {cc} \n Your Score : {y} \n Computer Score : {c} ".format(yc=YOUR_CHOICE,cc=COMPUTER_CHOICE,y=YOUR_SCORE,c=COMPUTER_SCORE)    
+    text_area.insert(tk.END,answer)
+
+def ROCK():
+    global YOUR_CHOICE
+    global COMPUTER_CHOICE
+    YOUR_CHOICE='ROCK'
+    COMPUTER_CHOICE=computer_choice()
+    result(YOUR_CHOICE,COMPUTER_CHOICE)
+def PAPER():
+    global YOUR_CHOICE
+    global COMPUTER_CHOICE
+    YOUR_CHOICE='PAPER'
+    COMPUTER_CHOICE=computer_choice()
+    result(YOUR_CHOICE,COMPUTER_CHOICE)
+def SCISSORS():
+    global YOUR_CHOICE
+    global COMPUTER_CHOICE
+    YOUR_CHOICE='SCISSORS'
+    COMPUTER_CHOICE=computer_choice() 
+    result(YOUR_CHOICE,COMPUTER_CHOICE)
+
+button1 = tk.Button(text="ROCK",bg="lime",command=ROCK)
+button1.grid(column=1,row=1)
+button2 = tk.Button(text="PAPER",bg="fuchsia",command=PAPER)
+button2.grid(column=2,row=1)
+button3 = tk.Button(text="SCISSORS",bg="skyblue",command=SCISSORS)
+button3.grid(column=3,row=1)
